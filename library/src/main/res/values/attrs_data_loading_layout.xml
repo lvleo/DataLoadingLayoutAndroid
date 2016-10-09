@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DataLoadingLayout">
+
+        <attr name="dataViewId" format="reference|integer" />
+
+        <attr name="statusText" format="string" />
+        <attr name="statusTextColor" format="color" />
+        <attr name="statusTextSize" format="dimension" />
+
+        <attr name="loadingBarColor" format="color" />
+        <attr name="loadingBarStyle" format="integer" />
+        <attr name="loadingBarSize" format="dimension" />
+
+    </declare-styleable>
+</resources>
