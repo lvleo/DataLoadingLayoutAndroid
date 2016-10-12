@@ -29,7 +29,7 @@ open the build.gradle file of your module, at the dependencies function add the 
         app:statusTextSize="16sp"
         />
 ```
-###Setp 3: The activity implements DataLoadingLayout.OnViewTouchListener, after init the view setDataView and setOnMyViewTouchListener,final Override the onTouchUp() function. like this:
+###Setp 3: The activity implements DataLoadingLayout.OnViewTouchListener, after init the view setDataView(view) and setOnMyViewTouchListener(this),final Override the onTouchUp() function. like this:
 
 ```groovy
 public class MainActivity extends AppCompatActivity implements DataLoadingLayout.OnViewTouchListener {
