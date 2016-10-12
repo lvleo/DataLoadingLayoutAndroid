@@ -28,8 +28,7 @@ open the build.gradle file of your module, at the dependencies function add the 
         app:statusTextSize="16sp"
         />
 ```
-#Setp 3: The activity implements DataLoadingLayout.OnViewTouchListener, after init the view setDataView and setOnMyViewTouchListener,
-final Override the onTouchUp() function. like this:
+#Setp 3: The activity implements DataLoadingLayout.OnViewTouchListener, after init the view setDataView and setOnMyViewTouchListener,final Override the onTouchUp() function. like this:
 
 ```groovy
 public class MainActivity extends AppCompatActivity implements DataLoadingLayout.OnViewTouchListener {
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadingLayout
 
     @Override
     public void onTouchUp() {
-        // if data load error ,can get data again by touch the view
+        // if data load error, can get data again by touch the view
     }
 }
 ```
@@ -72,7 +71,7 @@ Finally, if you still don't know how to use it, you can view the example code.
 |statusTextColor|color|Color.GRAY|the status string's color|
 |statusText|string|No Data|the status default content|
 |loadingBarColor|color|Color.GRAY|the ProgressBar's color|
-|loadingBarSize|dimension|the ProgressBar's size|
+|loadingBarSize|dimension|48|the ProgressBar's size|
 
 
 ##About me
