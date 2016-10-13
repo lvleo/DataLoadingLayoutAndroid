@@ -27,6 +27,6 @@ dependencies {
     compile project(':library')
 
     compile 'com.loopj.android:android-async-http:1.4.9'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+//    compile 'com.github.bumptech.glide:glide:3.7.0'
 
 }

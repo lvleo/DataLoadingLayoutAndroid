@@ -1,6 +1,5 @@
 package com.lvleo.dataloadinglayout.android;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,16 +24,14 @@ public class MainActivity extends AppCompatActivity implements DataLoadingLayout
 
     private Button btnNoData, btnDataLoadingSuccess, btnDataLoadingError;
 
-    private DataLoadingLayout mLoadingLayout;
-    private Context mContext;
-
     private TextView txtResult;
+
+    private DataLoadingLayout mLoadingLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mContext = this;
 
         btnNoData = (Button) findViewById(R.id.btn_data_empty);
         btnDataLoadingSuccess = (Button) findViewById(R.id.btn_data_success);
@@ -45,9 +42,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadingLayout
         mLoadingLayout = (DataLoadingLayout) findViewById(R.id.loading_layout);
 
         mLoadingLayout.setDataView(txtResult);
-
         mLoadingLayout.setOnMyViewTouchListener(this);
-
 
         btnNoData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +68,8 @@ public class MainActivity extends AppCompatActivity implements DataLoadingLayout
 
     @Override
     public void onTouchUp() {
+        // if data load Error, can get data again by touch the view
 
-        Log.e(TAG, "onTouchUp: =======");
         getData("http://api.map.baidu.com/telematics/v3/weather?location=无锡");
 
     }
@@ -100,8 +95,17 @@ public class MainActivity extends AppCompatActivity implements DataLoadingLayout
                 Log.i(TAG, "onSuccess: response==" + response);
                 if (response.optInt("error") == 0) {
                     mLoadingLayout.loadSuccess();
+
+                    JSONObject object = response.optJSONArray("results").optJSONObject(0).
+                            optJSONArray("weather_data").optJSONObject(0);
+
+                    String weather = "今日天气\r\n" + object.optString("date") + "\r\n 温度：" +
+                            object.optString("temperature") + "\r\n 风向：" + object.optString("wind");
+
+                    txtResult.setText(weather);
+
                 } else {
-                    mLoadingLayout.loadSuccess("暂无数据");
+                    mLoadingLayout.loadSuccess("暂无数据,\n点击屏幕 重新加载 ");
                 }
             }
 
@@ -109,11 +113,9 @@ public class MainActivity extends AppCompatActivity implements DataLoadingLayout
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
 
-                mLoadingLayout.loadError("服务器连接失败,\n点击当前页面重新获取数据");
+                mLoadingLayout.loadError("服务器连接失败,\n点击屏幕 重新加载");
 
             }
         });
-
     }
-
 }

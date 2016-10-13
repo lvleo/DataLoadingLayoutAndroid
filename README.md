@@ -12,7 +12,7 @@ DataLoadingLayout is a simple library for Android. It's a layout to show current
 open the build.gradle file of your module, at the dependencies function add the below code:
 
 ```groovy
-	compile 'com.lvleo:data-loading-layout:0.1.0'
+	compile 'com.lvleo:data-loading-layout:0.1.1'
 ```
 
 ###Step 2:Add the view to your layout.xml file:
@@ -110,8 +110,17 @@ public class MainActivity extends AppCompatActivity implements DataLoadingLayout
                 Log.i(TAG, "onSuccess: response==" + response);
                 if (response.optInt("error") == 0) {
                     mLoadingLayout.loadSuccess();
+
+                    JSONObject object = response.optJSONArray("results").optJSONObject(0).
+                            optJSONArray("weather_data").optJSONObject(0);
+
+                    String weather = "今日天气\r\n" + object.optString("date") + "\r\n 温度：" +
+                            object.optString("temperature") + "\r\n 风向：" + object.optString("wind");
+
+                    txtResult.setText(weather);
+
                 } else {
-                    mLoadingLayout.loadSuccess("暂无数据");
+                    mLoadingLayout.loadSuccess("暂无数据,\n点击屏幕 重新加载 ");
                 }
             }
 
@@ -119,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadingLayout
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
 
-                mLoadingLayout.loadError("服务器连接失败,\n点击当前页面重新获取数据");
+                mLoadingLayout.loadError("服务器连接失败,\n点击屏幕 重新加载");
 
             }
         });
