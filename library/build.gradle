@@ -1,28 +1,9 @@
 apply plugin: 'com.android.library'
 
-
 ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'data-loading-layout'
-
-    publishedGroupId = 'com.lvleo.dataloadinglayout'
-    libraryName = 'DataLoadingLayout'
-    artifact = 'data-loading-layout'
-
-    libraryDescription = 'A custom view for data loading status on Android'
-
-    siteUrl = 'https://github.com/lvleo/DataLoadingLayoutAndroid'
-    gitUrl = 'https://github.com/lvleo/DataLoadingLayoutAndroid.git'
-
-    libraryVersion = '0.1.0'
-
-    developerId = 'leolv'
-    developerName = 'leolv'
-    developerEmail = 'lvyongxu@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
+    PUBLISH_GROUP_ID = 'com.lvleo'
+    PUBLISH_ARTIFACT_ID = 'data-loading-layout'
+    PUBLISH_VERSION = '0.1.1'
 }
 
 android {
@@ -30,14 +11,16 @@ android {
     buildToolsVersion "24.0.2"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 9
         targetSdkVersion 24
-        versionCode 1
-        versionName "0.1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        versionCode 2
+        versionName "1.1"
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -46,9 +29,9 @@ android {
     }
 }
 
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:24.2.1'
-    testCompile 'junit:junit:4.12'
 }
+
+apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'

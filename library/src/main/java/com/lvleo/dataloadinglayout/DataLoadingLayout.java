@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -28,7 +27,7 @@ public class DataLoadingLayout extends RelativeLayout {
 
     private static final String TAG = DataLoadingLayout.class.getSimpleName();
 
-    private String mTextContent; // TODO: use a default from R.string...
+    private String mTextContent ="No Data"; // TODO: use a default from R.string...
     private float mTextSize = 14; // TODO: use a default from R.dimen...
     private int mTextColor = Color.GRAY; // TODO: use a default from R.color...
 
@@ -85,13 +84,13 @@ public class DataLoadingLayout extends RelativeLayout {
 //            Log.e(TAG, "init: dataViewResId=" + dataViewResId);
 //
 //            if (dataViewResId > 0) {
-//                dataView = getVfindViewById(dataViewResId);
+//                dataView = findViewById(dataViewResId);
 //                dataView.setVisibility(GONE);
 //            } else {
 //                throw new IllegalStateException("The app:dataViewId attribute is must");
 //            }
 
-            typedArray.getInteger(R.styleable.DataLoadingLayout_dataViewId, -1);
+//            typedArray.getInteger(R.styleable.DataLoadingLayout_dataViewId, -1);
 
             typedArray.recycle();
         }
@@ -133,7 +132,7 @@ public class DataLoadingLayout extends RelativeLayout {
                     mOnViewTouchListener.onTouchUp();
                     canRefresh = false;
                 } else {
-                    Log.e(TAG, "onTouchEvent: Please call setCanRefresh(true)method first; ");
+                    Log.e(TAG, "onTouchEvent: Please call setCanRefresh(true)method first");
 //                    Toast.makeText(getContext(), "请调用setCanRefresh()方法", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -162,7 +161,7 @@ public class DataLoadingLayout extends RelativeLayout {
      *
      * @param listener the touch listener to attach to this view
      */
-    public void setOnMyViewTouchListener(@Nullable OnViewTouchListener listener) {
+    public void setOnMyViewTouchListener(@NonNull OnViewTouchListener listener) {
         this.mOnViewTouchListener = listener;
     }
 
@@ -249,6 +248,7 @@ public class DataLoadingLayout extends RelativeLayout {
         } else {
             throw new IllegalStateException("The dataView is must not null");
         }
+
         canRefresh = false;
 
     }
@@ -272,7 +272,8 @@ public class DataLoadingLayout extends RelativeLayout {
         } else {
             throw new IllegalStateException("The dataView is must not null");
         }
-        canRefresh = false;
+
+        canRefresh = true;
 
     }
 
@@ -296,7 +297,7 @@ public class DataLoadingLayout extends RelativeLayout {
             throw new IllegalStateException("The dataView is must not null");
         }
 
-        canRefresh = false;
+        canRefresh = true;
 
     }
 
