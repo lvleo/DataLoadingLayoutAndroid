@@ -1,12 +1,13 @@
 # DataLoadingLayout
 ## Description
 DataLoadingLayout is a simple library for Android. It's a layout to show current data loading status(loading, load success,load error)
-A custom view for data loading status on Android
-一个根据当前数据加载状态，显示对应界面（加载中，加载成功、加载失败）提示的简单控件
+
+##Screenshots
+![](https://github.com/lvleo/DataLoadingLayoutAndroid/blob/master/screen/screen.gif)
 
 ## Usage
 
-###Setp 1:Add the dependency:
+###Step 1:Add the dependency:
 
 open the build.gradle file of your module, at the dependencies function add the below code:
 
@@ -14,7 +15,7 @@ open the build.gradle file of your module, at the dependencies function add the 
 	compile 'com.lvleo:data-loading-layout:0.1.0'
 ```
 
-###Setp 2:Add the view to your layout.xml file:
+###Step 2:Add the view to your layout.xml file:
 
 ```groovy
 <com.lvleo.dataloadinglayout.DataLoadingLayout
@@ -29,7 +30,7 @@ open the build.gradle file of your module, at the dependencies function add the 
         app:statusTextSize="16sp"
         />
 ```
-###Setp 3: The activity implements DataLoadingLayout.OnViewTouchListener, after init the view setDataView(view) and setOnMyViewTouchListener(this),final Override the onTouchUp() function. like this:
+###Step 3: The activity implements DataLoadingLayout.OnViewTouchListener, after init the view setDataView(view) and setOnMyViewTouchListener(this),final Override the onTouchUp() function. like this:
 
 ```groovy
 public class MainActivity extends AppCompatActivity implements DataLoadingLayout.OnViewTouchListener {
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements DataLoadingLayout
 |statusTextSize|dimension|14|the status string's font size|
 |statusTextColor|color|Color.GRAY|the status string's color|
 |statusText|string|No Data|the status default content|
-|loadingBarColor|color|Color.GRAY|the ProgressBar's color|
+|loadingBarColor|color|Color.BLUE|the ProgressBar's color|
 |loadingBarSize|dimension|48|the ProgressBar's size|
 
 
