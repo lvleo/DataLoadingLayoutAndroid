@@ -3,18 +3,18 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID = 'com.lvleo'
     PUBLISH_ARTIFACT_ID = 'data-loading-layout'
-    PUBLISH_VERSION = '0.1.1'
+    PUBLISH_VERSION = '0.1.2'
 }
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 24
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.2"
     }
 
     lintOptions {

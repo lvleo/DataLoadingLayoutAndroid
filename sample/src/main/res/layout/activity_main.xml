@@ -67,6 +67,7 @@
         app:loadingBarColor="@android:color/holo_purple"
         app:statusText="暂无数据"
         app:statusTextColor="@android:color/black"
+        app:statusTextIconId="@mipmap/ic_sad"
         app:statusTextSize="16sp"
         />
 

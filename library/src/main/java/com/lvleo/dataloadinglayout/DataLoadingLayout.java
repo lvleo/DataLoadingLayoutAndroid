@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -27,12 +30,15 @@ public class DataLoadingLayout extends RelativeLayout {
 
     private static final String TAG = DataLoadingLayout.class.getSimpleName();
 
-    private String mTextContent ="No Data"; // TODO: use a default from R.string...
+    private String mTextContent = "No Data"; // TODO: use a default from R.string...
     private float mTextSize = 14; // TODO: use a default from R.dimen...
     private int mTextColor = Color.GRAY; // TODO: use a default from R.color...
 
     private int mProgressBarColor = Color.BLUE; // TODO: use a default from R.color...
     private float mProgressBarSize = 48; // TODO: use a default from R.dimen...
+
+    private int dataViewResId = -1;
+    private int mIconId = -1;
 
     private int padding = 16;
 
@@ -80,11 +86,13 @@ public class DataLoadingLayout extends RelativeLayout {
             mProgressBarSize = typedArray.getDimensionPixelSize(R.styleable.DataLoadingLayout_loadingBarSize,
                     (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, getResources().getDisplayMetrics()));
 
-//            int dataViewResId = typedArray.getResourceId(R.styleable.DataLoadingLayout_dataViewId, -1);
+            mIconId = typedArray.getResourceId(R.styleable.DataLoadingLayout_statusTextIconId, 0);
+
+//            dataViewResId = typedArray.getResourceId(R.styleable.DataLoadingLayout_dataViewId, -1);
 //            Log.e(TAG, "init: dataViewResId=" + dataViewResId);
 //
-//            if (dataViewResId > 0) {
-//                dataView = findViewById(dataViewResId);
+//            if (dataViewResId != -1) {
+//                dataView = LayoutInflater.from(getContext()).inflate(dataViewResId, this, false);
 //                dataView.setVisibility(GONE);
 //            } else {
 //                throw new IllegalStateException("The app:dataViewId attribute is must");
@@ -101,6 +109,8 @@ public class DataLoadingLayout extends RelativeLayout {
         textViewStatus.setText(mTextContent);
         textViewStatus.setTextColor(mTextColor);
         textViewStatus.setTextSize(mTextSize);
+
+        textViewStatus.setCompoundDrawablesWithIntrinsicBounds(0, mIconId, 0, 0);
 
         textViewStatus.setGravity(Gravity.CENTER);
 
@@ -121,6 +131,8 @@ public class DataLoadingLayout extends RelativeLayout {
         progressBarLoading.getIndeterminateDrawable().setColorFilter(mProgressBarColor, PorterDuff.Mode.SRC_IN);
 
         this.addView(progressBarLoading, barLoadingParams);
+
+        this.setVisibility(GONE);
 
     }
 
@@ -166,21 +178,62 @@ public class DataLoadingLayout extends RelativeLayout {
     }
 
     /**
-     * Gets data view.
+     * Gets dataView.
      *
-     * @return the data view
+     * @return the dataView
      */
     public View getDataView() {
         return dataView;
     }
 
     /**
-     * Sets data view.
+     * Sets dataView.
      *
-     * @param dataView the data view
+     * @param dataView the data view to show you data
      */
     public void setDataView(View dataView) {
         this.dataView = dataView;
+    }
+
+
+    /**
+     * Gets textView status.
+     *
+     * @return the status textView
+     */
+    public TextView getStatusTextView() {
+        return textViewStatus;
+    }
+
+    /**
+     * Gets progress bar.
+     *
+     * @return the loading progressBar
+     */
+    public ProgressBar getLoadingProgressBar() {
+        return progressBarLoading;
+    }
+
+    /**
+     * Sets status top icon.
+     *
+     * @param iconId the icon id
+     */
+    public void setStatusTopIcon(@DrawableRes int iconId) {
+        if (textViewStatus != null) {
+            textViewStatus.setCompoundDrawablesWithIntrinsicBounds(0, iconId, 0, 0);
+        }
+    }
+
+    /**
+     * Sets status top icon.
+     *
+     * @param icon the icon
+     */
+    public void setStatusTopIcon(@Nullable Drawable icon) {
+        if (textViewStatus != null) {
+            textViewStatus.setCompoundDrawablesWithIntrinsicBounds(null, icon, null, null);
+        }
     }
 
     /**
@@ -283,7 +336,7 @@ public class DataLoadingLayout extends RelativeLayout {
      * @param statusId the status id
      */
     public void loadSuccess(@StringRes int statusId) {
-        if (statusId > 0) {
+        if (statusId != -1) {
             textViewStatus.setVisibility(View.VISIBLE);
             textViewStatus.setText(statusId);
         } else {
@@ -332,7 +385,7 @@ public class DataLoadingLayout extends RelativeLayout {
      * @param statusId the status id
      */
     public void loadError(@StringRes int statusId) {
-        if (statusId > 0) {
+        if (statusId != -1) {
             textViewStatus.setVisibility(View.VISIBLE);
 //            textViewStatus.setTextColor(Color.RED);
             textViewStatus.setText(statusId);

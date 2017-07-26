@@ -2,16 +2,16 @@
 <resources>
     <declare-styleable name="DataLoadingLayout">
 
-        <!--<attr name="dataViewId" format="reference|integer" />-->
+        <!--<attr name="dataViewId" format="reference" />-->
 
-        <attr name="statusText" format="string" />
-        <attr name="statusTextColor" format="color" />
-        <attr name="statusTextSize" format="dimension" />
+        <attr name="statusText" format="string"/>
+        <attr name="statusTextColor" format="color"/>
+        <attr name="statusTextSize" format="dimension"/>
+        <attr name="statusTextIconId" format="reference|color"/>
 
-        <attr name="loadingBarColor" format="color" />
-        <attr name="loadingBarSize" format="dimension" />
+        <attr name="loadingBarColor" format="color"/>
+        <attr name="loadingBarSize" format="dimension"/>
 
-        <!--<attr name="loadingBarStyle" format="integer" />-->
 
     </declare-styleable>
 </resources>

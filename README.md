@@ -12,7 +12,7 @@ DataLoadingLayout is a simple library for Android. It's a layout to show current
 open the build.gradle file of your module, at the dependencies function add the below code:
 
 ```groovy
-	compile 'com.lvleo:data-loading-layout:0.1.1'
+	compile 'com.lvleo:data-loading-layout:0.1.2'
 ```
 
 ###Step 2:Add the view to your layout.xml file:
@@ -56,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements DataLoadingLayout
 
         mLoadingLayout = (DataLoadingLayout) findViewById(R.id.loading_layout);
 
+//        TextView textView = mLoadingLayout.getTextViewStatus();
+//        textView.setTextColor(Color.RED);
+//        textView.setCompoundDrawablesWithIntrinsicBounds(0, R.mipmap.ic_sad, 0, 0);
+
         mLoadingLayout.setDataView(txtResult);
         mLoadingLayout.setOnMyViewTouchListener(this);
         
@@ -78,15 +82,14 @@ public class MainActivity extends AppCompatActivity implements DataLoadingLayout
             }
         });
 
-        mLoadingLayout.loadSuccess("Demo演示");
+        txtResult.setText("点击切换上方的按钮查看实际效果");
+        mLoadingLayout.setStatusTopIcon(R.mipmap.ic_sad);
     }
 
     @Override
     public void onTouchUp() {
-        // if data load Error, can get data again by touch the view
-
+        // if data load Error or data is empty, can get data again by touch the view
         getData("http://api.map.baidu.com/telematics/v3/weather?location=无锡");
-
     }
 
     private void getData(String subUrl) {
@@ -120,16 +123,14 @@ public class MainActivity extends AppCompatActivity implements DataLoadingLayout
                     txtResult.setText(weather);
 
                 } else {
-                    mLoadingLayout.loadSuccess("暂无数据,\n点击屏幕 重新加载 ");
+                    mLoadingLayout.loadSuccess("暂无数据\n点击屏幕 重新加载 ");
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
-
-                mLoadingLayout.loadError("服务器连接失败,\n点击屏幕 重新加载");
-
+                mLoadingLayout.loadError("服务器连接失败\n点击屏幕 重新加载");
             }
         });
     }
